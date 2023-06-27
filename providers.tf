@@ -21,6 +21,8 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
+  access_key = "dedwdwdw"
+  secret_key = "dedwefdwed"
 
 }
 
