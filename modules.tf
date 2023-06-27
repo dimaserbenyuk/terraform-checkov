@@ -88,6 +88,7 @@ module "eks" {
     }
   }
 
+
   eks_managed_node_groups = {
     general = {
       desired_size = 1
