@@ -50,6 +50,8 @@ module "s3_bucket" {
   versioning = {
     enabled = true
   }
+  server_side_encryption_configuration = var.server_side_encryption_configuration
+  
 
   tags = {
     Env     = "prod"
