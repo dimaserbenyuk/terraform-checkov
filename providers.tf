@@ -19,10 +19,6 @@ terraform {
   # }
 }
 
-# Configure the AWS Provider
-provider "aws" {
-  region = "us-east-1"
-}
 
 provider "kubernetes" {
   host                   = data.aws_eks_cluster.adonce-test.endpoint
