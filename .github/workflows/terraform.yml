@@ -5,9 +5,10 @@ on:
       - main
 
 permissions:
-  contents: read
-  security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+  security-events: write
+  # only required for workflows in private repositories
   actions: read
+  contents: read
 
 jobs:
   build:
@@ -41,3 +42,6 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: results.sarif   
+          # Optional category for the results
+          # Used to differentiate multiple results for one commit
+          category: my-analysis-tool
