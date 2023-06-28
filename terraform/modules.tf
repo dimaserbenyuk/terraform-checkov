@@ -109,3 +109,15 @@ module "eks" {
   }
 
 }
+
+module "zones" {
+  source  = "terraform-aws-modules/route53/aws//modules/zones"
+  version = "2.10.2"
+  zones = {
+    "yeew.de" = {
+      comment = "main hosted zone"
+    }
+
+    "yeew.eu" = {}
+  }
+}
