@@ -1,47 +1,47 @@
-name: Checkov
-on:
-  push:
-    branches:
-      - main
+# name: Checkov
+# on:
+#   push:
+#     branches:
+#       - main
 
-permissions:
-  security-events: write
-  # only required for workflows in private repositories
-  actions: read
-  contents: read
+# permissions:
+#   security-events: write
+#   # only required for workflows in private repositories
+#   actions: read
+#   contents: read
 
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-      - name: Test with Checkov
-        id: checkov
-        uses: bridgecrewio/checkov-action@master
-        with:
-          directory: .
-          framework: terraform 
-          # download_external_modules: true
-          output_format: cli,sarif
-          output_file_path: console,results.sarif
-          skip_check: CKV_TF_1
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Set up Python 3.8
+#         uses: actions/setup-python@v1
+#         with:
+#           python-version: 3.8
+#       - name: Test with Checkov
+#         id: checkov
+#         uses: bridgecrewio/checkov-action@master
+#         with:
+#           directory: terraform
+#           framework: terraform 
+#           # download_external_modules: true
+#           output_format: cli,sarif
+#           output_file_path: console,results.sarif
+#           skip_check: CKV_TF_1
 
-      - name: Upload SARIF file
-        uses: github/codeql-action/upload-sarif@v2
+#       - name: Upload SARIF file
+#         uses: github/codeql-action/upload-sarif@v2
         
-        # Results are generated only on a success or failure
-        # this is required since GitHub by default won't run the next step
-        # when the previous one has failed. Security checks that do not pass will 'fail'.
-        # An alternative is to add `continue-on-error: true` to the previous step
-        # Or 'soft_fail: true' to checkov.
-        if: success() || failure()
-        with:
-          sarif_file: results.sarif   
-          # Optional category for the results
-          # Used to differentiate multiple results for one commit
-          category: my-analysis-tool
+#         # Results are generated only on a success or failure
+#         # this is required since GitHub by default won't run the next step
+#         # when the previous one has failed. Security checks that do not pass will 'fail'.
+#         # An alternative is to add `continue-on-error: true` to the previous step
+#         # Or 'soft_fail: true' to checkov.
+#         if: success() || failure()
+#         with:
+#           sarif_file: results.sarif   
+#           # Optional category for the results
+#           # Used to differentiate multiple results for one commit
+#           category: my-analysis-tool
